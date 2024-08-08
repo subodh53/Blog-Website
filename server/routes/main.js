@@ -26,7 +26,7 @@ router.get('',async(req,res)=>{
         const hasNextPage = nextPage <= Math.ceil(count/perPage);
 
 
-        res.render('index',{locals,data,current:page,nextPage: hasNextPage? nextPage : null});
+        res.render('index',{locals,data,current:page,nextPage: hasNextPage? nextPage : null,currentRoute:'/'});
     } catch (error) {
         console.log(error);
     }
@@ -41,7 +41,8 @@ router.get('/post/:id',async(req,res)=>{
     try {
         const locals = {
             title: data.title,
-            description: "Simple blog created with NodeJS"
+            description: "Simple blog created with NodeJS",
+            currentRoute:`/post/${slug}`
         }
         res.render('post',{locals,data});
     } catch (error) {
@@ -127,7 +128,9 @@ router.post('/search',async(req,res)=>{
 
 // GET About
 router.get('/about',(req,res)=>{
-    res.render('about');
+    res.render('about',{
+        currentRoute:'/about'
+    });
 });
 
 
